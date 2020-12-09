@@ -1,0 +1,123 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(248,100,87);
+    
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: solid 1px, darkslategray;
+    border-radius: 5px;
+    background-color: rgb(244,247,252);
+    padding: 15% 3% 10% 3%;
+}
+
+.date-container{
+    font-size: larger;
+    border: solid 1px, darkslategray;
+    color: rgb(244,101,106);
+    padding-left: 0.5rem;
+}
+
+.input-container {
+    display: inline-flex;
+    margin: 3%;
+}
+
+input {
+    display: inline-flex;
+    border-radius: 3px;
+    line-height: 2rem;
+    border: solid 1px lightsteelblue;
+    width: 100%;
+    left: 0;
+}
+
+::placeholder {
+   padding-left: 1rem;
+   font-style: italic;
+   font-size: larger;
+}
+
+input.checkbox {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    border: none;
+}
+
+.note {
+    padding-left: 0.5rem;
+    font-size: smaller;
+    margin-bottom: 0;
+}
+
+.btn {
+    
+    border: none;
+    border-radius: 3px;
+    font-size: larger;
+    vertical-align: middle;
+    background-color: rgb(245,100,104);
+    color: rgb(236, 236, 236);
+    height: 2.5rem;
+    width: 2.5rem;
+    float: right;
+    
+
+}
+
+.btn-add {
+    background-color: rgb(66, 66, 246);
+    font-size: xx-large;
+    margin-left: 0.5rem;
+}
+
+.buttons {
+    display: flex;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.btn-show-hide-complete, .btn-clear-all-pending {
+    
+    line-height: auto;
+    width: auto;
+    align-items: center;
+    margin: 0.5rem;
+    background-color: rgb(224,232,245);
+    color: rgb(0, 88, 189);
+    font-size: smaller;
+    font-weight: 600;
+}
+
+ul {
+       list-style: none;
+       padding-left: 0;
+}
+
+li, input, label  {
+    cursor: pointer;
+}
+
+li {
+    display: block;
+    line-height: 2.5rem;
+    border-radius: 3px;
+    margin: 0.5rem;
+    padding-left: 0.5rem;
+    background-color: rgb(224,232,245);
+    
+}
+
+.completed-items-container {
+    text-decoration: line-through;
+
+}

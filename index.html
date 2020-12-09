@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Application</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <header></header>
+    <main>
+
+        <div class="app-container">
+
+            <div class="date-container">
+                <div class="day">Thursday</div>
+                <div class="date">1970.01.01.</div>
+            </div>
+            <div class="input-container">
+                <input class="text-input" type="text" name="" id="" placeholder="Take the garbage out">
+                <button class="btn btn-add">+</button>
+            </div>
+            <p class="note pending-note">You have 3 pending items</p>
+            <div class="pending-items-container">
+                <ul class="pending-items">
+                    <li><input class="checkbox" type="checkbox" name="" id="check-1">
+                        <label for="check-1">First thing to do</label>
+                        <button class="btn btn-delete-item"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </li>
+                    <li><input class="checkbox"type="checkbox" name="" id="check-2">
+                        <label for="check-2">Second task today</label>
+                        <button class="btn btn-delete-item"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </li>
+                    <li><input class="checkbox" type="checkbox" name="" id="check-3">
+                        <label for="check-3">Third thing to consider</label>
+                        <button class="btn btn-delete-item"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </li>
+                </ul>
+
+            </div>
+            <p class="note completed-note">Completed tasks: 50%</p>
+            <div class="completed-items-container">
+                <ul class="completed-items">
+                    <li><input class="checkbox completed" type="checkbox" name="" id="check-1" checked>
+                        <label for="check-4">This is done already</label>
+                        <button class="btn btn-delete-item"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </li>
+                    <li><input class="checkbox completed" type="checkbox" name="" id="check-2" checked>
+                        <label for="check-5">Another thing is done</label>
+                        <button class="btn btn-delete-item"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </li>
+                    <li><input class="checkbox completed" type="checkbox" name="" id="check-3" checked>
+                        <label for="check-6">Third task is completed</label>
+                        <button class="btn btn-delete-item"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </li>
+
+
+                </ul>
+
+            </div>
+            <div class="buttons show-hide-clear">
+                <button class=" btn btn-show-hide-complete">Hide Complete </button>
+                <button class="btn btn-clear-all-pending">Clear All</button>
+            </div>
+
+        </div>
+
+
+
+
+    </main>
+    <footer></footer>
+
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
