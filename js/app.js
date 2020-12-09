@@ -40,5 +40,3 @@ function deleteItemClickHandler() {
 
 
 
-
-
