@@ -1,12 +1,11 @@
 
-
 (function addBtnClickHandler() {
     const userInputText = () => document.querySelector('.userInputText').value;
     const addButton = document.querySelector('.btn-add');
     addButton.addEventListener('click', (event) => {
         addNewPendingItem(userInputText());
         document.querySelector('.userInputText').value = null
-        
+
     });
 })();
 
@@ -16,25 +15,25 @@
 function addNewPendingItem(label) {
     document.querySelector('.pending-items')
         .insertAdjacentHTML('afterbegin', newPendingItemHTML(label));
-   
+    savePendingsToLocalStorage();
+
     // Add EventListeners to New Pending Items:
     let trashButton = document.querySelector('.pending-items>li>.btn-delete-item')
-        trashButton.addEventListener('click', (event) => {
-            removeCurrentTargetParentElement(event)
-        });
+    trashButton.addEventListener('click', (event) => {
+        removeCurrentTargetParentElement(event)
+    });
     let checkBox = document.querySelector('.pending-items>li>.checkbox')
     checkBox.addEventListener('change', (event) => {
-            if (checkBox.checked == true) {
-                moveToCompleted(event)
-            }
-        })
+        if (checkBox.checked == true) {
+            moveToCompleted(event)
+        }
+    })
     pendingNote();
     completedNote();
-    
+
+
+
 };
-
-
-
 
 function newPendingItemHTML(label) {
     return `<li><input class="checkbox" type="checkbox" id="${label}">
@@ -47,19 +46,17 @@ function newPendingItemHTML(label) {
 function addNewCompletedItem(label) {
     document.querySelector('.completed-items')
         .insertAdjacentHTML('afterbegin', newCompletedItemHTML(label));
-
-    // Add EventListeners to New Items:
+    saveCompletedToLocalStorage()
+    // Add EventListeners to New Completed Items:
     let trashButton = document.querySelector('.completed-items>li>.btn-delete-item')
-        trashButton.addEventListener('click', (event) => {
-            removeCurrentTargetParentElement(event);
-        });
+    trashButton.addEventListener('click', (event) => {
+        removeCurrentTargetParentElement(event);
+    });
     let checkBox = document.querySelector('.completed-items>li>.checkbox')
     checkBox.addEventListener('change', (event) => {
-             if (checkBox.checked == false) {
-                moveToPending(event);
-            };
-
-        
+        if (checkBox.checked == false) {
+            moveToPending(event);
+        };
     });
 };
 
@@ -82,9 +79,11 @@ function newCompletedItemHTML(label) {
 
 
 function removeCurrentTargetParentElement(event) {
-    event.currentTarget.parentElement.remove() 
+    event.currentTarget.parentElement.remove()
     pendingNote();
     completedNote();
+    savePendingsToLocalStorage()
+    saveCompletedToLocalStorage()
 };
 
 // CLEAR ALL PENDING BUTTON
@@ -93,13 +92,13 @@ function removeAllPendingElements() {
     document.querySelectorAll('.pending').forEach(element => element.parentElement.remove());
     pendingNote();
     completedNote();
+    savePendingsToLocalStorage()
+
 };
 
 (function clearAllBtnClickHandler() {
     document.querySelector('.btn-clear-all-pending').addEventListener('click', (event) => {
         removeAllPendingElements();
-        
-
     });
 })();
 
@@ -108,13 +107,28 @@ function removeAllPendingElements() {
 (function showHideBtnClickHandler() {
     document.querySelector('.btn-show-hide-completed').addEventListener('click', (event) => {
         showHideCompletedItems();
+        // changeButtonText();
     })
 })();
 
 function showHideCompletedItems() {
     document.querySelectorAll('.completed-items')
-        .forEach(element => element.parentElement.classList.toggle("hidden"))
+        .forEach(element => element.parentElement.classList.toggle("hidden"));
+    // Change Button Text:
+    // if (document.querySelector('.completed-items-container') == 'hidden') {
+    //     document.querySelector('.btn-show-hide-completed').textContent = 'Show Completed'
+    // }
+
 };
+
+// function changeButtonText() {
+
+//     if (document.querySelector('.btn-show-hide-completed').textContent = 'Hide Completed') {
+//         document.querySelector('.btn-show-hide-completed').textContent ='Show Completed';
+//       } else if (document.querySelector('.btn-show-hide-completed').textContent = 'Show Completed') {
+//         document.querySelector('.btn-show-hide-completed').textContent = 'Hide Completed';
+//       }
+// };
 
 
 // MOVE TO COMPLETED - when checked in Pending-List
@@ -125,6 +139,7 @@ function moveToCompleted(event) {
     addNewCompletedItem(label);
     pendingNote();
     completedNote();
+
 };
 
 // MOVE TO COMPLETED - when unchecked in Completed-List
@@ -135,15 +150,23 @@ function moveToPending(event) {
     addNewPendingItem(label);
     pendingNote();
     completedNote();
+    
 };
 
 
 // Refresh PENDING NOTE
 
 function pendingNote() {
-    const numberOfPendingItems = document.querySelectorAll('.pending').length;
-    const pendingNote = `You have ${numberOfPendingItems} pending items`;
-    document.querySelector('.pending-note').textContent = pendingNote;
+
+    const choosePendingNote = () => {
+        const numberOfPendingItems = document.querySelectorAll('.pending').length;
+        if (numberOfPendingItems > 0) {
+            return `You have ${numberOfPendingItems} pending items`;
+        };
+        return `Time to chill! You have no todos.`
+    };
+
+    document.querySelector('.pending-note').textContent = choosePendingNote();
 }
 
 // Refresh COMPLETED NOTE 
@@ -151,15 +174,16 @@ function pendingNote() {
 function completedNote() {
     const numberOfCompletedItems = document.querySelectorAll('.completed').length;
     const numberOfPendingItems = document.querySelectorAll('.pending').length;
-    const percentage = 
-    Math.round(numberOfCompletedItems/(numberOfCompletedItems + numberOfPendingItems)*100)
-    const completedNote = () => {
+    const percentage =
+        Math.round(numberOfCompletedItems / (numberOfCompletedItems + numberOfPendingItems) * 100)
+    const chooseCompletedNote = () => {
         if (numberOfPendingItems < 1 && numberOfCompletedItems < 1) {
-            return ''};
-            return `Completed tasks: ${percentage}%`;
+            return ''
+        };
+        return `Completed tasks: ${percentage}%`;
     }
-    ;
-    document.querySelector('.completed-note').textContent = completedNote();
+        ;
+    document.querySelector('.completed-note').textContent = chooseCompletedNote();
 };
 
 
@@ -167,7 +191,7 @@ function completedNote() {
 
 const showDate = () => {
 
-    const dayNames =  [
+    const dayNames = [
         'Sunday',
         'Monday',
         'Tuesday',
@@ -176,7 +200,7 @@ const showDate = () => {
         'Friday',
         'Saturday'
     ];
-    
+
     const currentDate = new Date();
     const day = [
         currentDate.getMonth() + 1,
@@ -188,14 +212,46 @@ const showDate = () => {
     document.querySelector('.day').textContent = dayNames[currentDate.getDay()];
     document.querySelector('.date').textContent = day.join('-');
 
-    
+
 };
 
 showDate();
 
-    
+// Refresh Local Storage
+
+function savePendingsToLocalStorage() {
+    const pendingItems = [];
+    localStorage.removeItem('pendingItems');
+    document.querySelectorAll('label.pending')
+        .forEach(element => pendingItems.push(element.textContent));
+    localStorage.setItem('pendingItems', JSON.stringify(pendingItems));
+};
+
+function saveCompletedToLocalStorage() {
+    const completedItems = [];
+    localStorage.removeItem('completedItems');
+    document.querySelectorAll('label.completed')
+        .forEach(element => completedItems.push(element.textContent));
+    localStorage.setItem('completedItems', JSON.stringify(completedItems));
+};
 
 
-  
+// Reload Items from Lacal Storage 
 
-    
+(function reloadPendingItems() {
+    const pendingItems = JSON.parse(localStorage.getItem('pendingItems'));
+    pendingItems.forEach(element => addNewPendingItem(element));
+
+})();
+
+(function reloadCompletedItems() {
+    const completedItems = JSON.parse(localStorage.getItem('completedItems'));
+    completedItems.forEach(element => addNewCompletedItem(element));
+})();
+
+
+
+
+
+
+
