@@ -100,6 +100,9 @@ input.checkbox {
     border: none;
 }
 
+label {
+    word-wrap: normal;
+}
 .note {
     padding-left: 0.5rem;
     font-size: smaller;

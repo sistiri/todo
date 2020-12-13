@@ -1,3 +1,21 @@
+// Reload Items from Lacal Storage 
+
+(function reloadPendingItems() {
+    const pendingItems = JSON.parse(localStorage.getItem('pendingItems'));
+    if (!pendingItems == []) {
+        pendingItems.reverse().forEach(element => addNewPendingItem(element))
+    }
+    ;
+
+})();
+
+(function reloadCompletedItems() {
+    const completedItems = JSON.parse(localStorage.getItem('completedItems'));
+    if (!completedItems == []) {
+    completedItems.reverse().forEach(element => addNewCompletedItem(element));
+    completedNote()
+};
+}) ();
 
 (function addBtnClickHandler() {
     const userInputText = () => document.querySelector('.userInputText').value;
@@ -225,23 +243,7 @@ function saveCompletedToLocalStorage() {
 };
 
 
-// Reload Items from Lacal Storage 
 
-(function reloadPendingItems() {
-    const pendingItems = JSON.parse(localStorage.getItem('pendingItems'));
-    if (!pendingItems == null) {
-        pendingItems.forEach(element => addNewPendingItem(element))
-    }
-    ;
-
-})();
-
-(function reloadCompletedItems() {
-    const completedItems = JSON.parse(localStorage.getItem('completedItems'));
-    if (!completedItems == null) {
-    completedItems.forEach(element => addNewCompletedItem(element));
-};
-}) ();
 
 
 
