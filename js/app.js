@@ -3,6 +3,9 @@
     const userInputText = () => document.querySelector('.userInputText').value;
     const addButton = document.querySelector('.btn-add');
     addButton.addEventListener('click', (event) => {
+        if (userInputText() == '') {
+            return alert('Please type a task to add!')
+        };
         addNewPendingItem(userInputText());
         document.querySelector('.userInputText').value = null
 
@@ -30,14 +33,13 @@ function addNewPendingItem(label) {
     })
     pendingNote();
     completedNote();
-
-
-
 };
+
+
 
 function newPendingItemHTML(label) {
     return `<li><input class="checkbox" type="checkbox" id="${label}">
-<label class="pending">${label}</label><button class="btn btn-delete-item">
+<label class="pending">${label}</label><button class="btn btn-hidden btn-delete-item">
 <i class="fa fa-trash-o" aria-hidden="true"></i></button></li>`
 };
 
@@ -46,7 +48,7 @@ function newPendingItemHTML(label) {
 function addNewCompletedItem(label) {
     document.querySelector('.completed-items')
         .insertAdjacentHTML('afterbegin', newCompletedItemHTML(label));
-    saveCompletedToLocalStorage()
+        saveCompletedToLocalStorage()
     // Add EventListeners to New Completed Items:
     let trashButton = document.querySelector('.completed-items>li>.btn-delete-item')
     trashButton.addEventListener('click', (event) => {
@@ -63,7 +65,7 @@ function addNewCompletedItem(label) {
 
 function newCompletedItemHTML(label) {
     return `<li><input class="checkbox" type="checkbox" id="${label}" checked>
-<label class="completed">${label}</label><button class="btn btn-delete-item">
+<label class="completed">${label}</label><button class="btn btn-hidden btn-delete-item">
 <i class="fa fa-trash-o" aria-hidden="true"></i></button></li>`
 };
 
@@ -107,29 +109,16 @@ function removeAllPendingElements() {
 (function showHideBtnClickHandler() {
     document.querySelector('.btn-show-hide-completed').addEventListener('click', (event) => {
         showHideCompletedItems();
-        // changeButtonText();
+        event.currentTarget.textContent == 'Hide Completed'
+            ? event.currentTarget.textContent = 'Show Completed'
+            : event.currentTarget.textContent = 'Hide Completed';
+
     })
 })();
 
 function showHideCompletedItems() {
-    document.querySelectorAll('.completed-items')
-        .forEach(element => element.parentElement.classList.toggle("hidden"));
-    // Change Button Text:
-    // if (document.querySelector('.completed-items-container') == 'hidden') {
-    //     document.querySelector('.btn-show-hide-completed').textContent = 'Show Completed'
-    // }
-
+    document.querySelector('.completed-items').parentElement.classList.toggle("hidden");
 };
-
-// function changeButtonText() {
-
-//     if (document.querySelector('.btn-show-hide-completed').textContent = 'Hide Completed') {
-//         document.querySelector('.btn-show-hide-completed').textContent ='Show Completed';
-//       } else if (document.querySelector('.btn-show-hide-completed').textContent = 'Show Completed') {
-//         document.querySelector('.btn-show-hide-completed').textContent = 'Hide Completed';
-//       }
-// };
-
 
 // MOVE TO COMPLETED - when checked in Pending-List
 
@@ -150,7 +139,7 @@ function moveToPending(event) {
     addNewPendingItem(label);
     pendingNote();
     completedNote();
-    
+
 };
 
 
@@ -240,14 +229,19 @@ function saveCompletedToLocalStorage() {
 
 (function reloadPendingItems() {
     const pendingItems = JSON.parse(localStorage.getItem('pendingItems'));
-    pendingItems.forEach(element => addNewPendingItem(element));
+    if (!pendingItems == null) {
+        pendingItems.forEach(element => addNewPendingItem(element))
+    }
+    ;
 
 })();
 
 (function reloadCompletedItems() {
     const completedItems = JSON.parse(localStorage.getItem('completedItems'));
+    if (!completedItems == null) {
     completedItems.forEach(element => addNewCompletedItem(element));
-})();
+};
+}) ();
 
 
 

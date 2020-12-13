@@ -4,19 +4,34 @@
 
 html {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(248,100,87);
-    
 }
 
+body {
+    min-height: 100vh;
+    background: linear-gradient(45deg, rgb(251,106,75), rgb(243,90,107));
+}
+
+.main {
+    position: absolute;
+    justify-content: center;
+}
 .app-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: auto;
+    margin: auto;
     height: 100%;
+    min-height: 90vh;
     border: solid 1px, darkslategray;
     border-radius: 5px;
     background-color: rgb(244,247,252);
-    padding: 15% 3% 10% 3%;
+    padding: 10vh 3% 10% 3%;
+}
+
+@media only screen and (min-width: 600px) {
+    .app-container {
+        width: 50%;
+    }
 }
 
 .date-container{
@@ -38,12 +53,44 @@ input {
     border: solid 1px lightsteelblue;
     width: 100%;
     left: 0;
+    outline-color: rgb(0,117,255);
+}
+.userInputText {
+    padding-left: 1rem;
+    font-size: 3vh;
 }
 
 ::placeholder {
-   padding-left: 1rem;
    font-style: italic;
-   font-size: larger;
+   font-weight: 400;
+   color: lightslategray;
+   font-size: 2.4vh;
+}
+
+@media only screen and (min-width: 350px) {
+    ::placeholder  {
+        width: 50%;
+        font-size: 3vh
+    }
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li, input, label  {
+ cursor: pointer;
+}
+
+li {
+ display: block;
+ line-height: 2.5rem;
+ border-radius: 3px;
+ margin: 0.5rem;
+ padding-left: 0.5rem;
+ background-color: rgb(224,232,245);
+ 
 }
 
 input.checkbox {
@@ -68,28 +115,31 @@ input.checkbox {
     background-color: rgb(245,100,104);
     color: rgb(236, 236, 236);
     height: 2.5rem;
-    width: 2.5rem;
-    float: right;
+    outline-color: rgb(236, 236, 236);
     cursor: pointer;
-    
-
 }
 
 .btn-add {
-    background-color: rgb(66, 66, 246);
+    background-color: rgb(175, 175, 175);
     font-size: xx-large;
     margin-left: 0.5rem;
+    width: 4rem;
+    transition: background-color 0.3s ease-out;
 }
+.btn-add:hover {
+    background-color: rgb(66, 66, 246);
+}
+
 
 .buttons {
     display: flex;
     align-content: center;
     text-align: center;
     justify-content: center;
+    vertical-align: bottom;
 }
 
 .btn-show-hide-completed, .btn-clear-all-pending {
-    
     line-height: auto;
     width: auto;
     align-items: center;
@@ -100,34 +150,32 @@ input.checkbox {
     font-weight: 600;
 }
 
-ul {
-       list-style: none;
-       padding-left: 0;
+.btn-hidden {
+    visibility: hidden;
+    float: right; 
+    width: 0;
+    ;
 }
 
-li, input, label  {
-    cursor: pointer;
+li:hover > .btn-hidden {
+    visibility: visible;
+    transition:  0.2s ease-out ;
+    width: 3rem;    
 }
 
-li {
-    display: block;
-    line-height: 2.5rem;
-    border-radius: 3px;
-    margin: 0.5rem;
-    padding-left: 0.5rem;
-    background-color: rgb(224,232,245);
-    
+.slide-in {
+    transform: translateX(100%);
+    transition: all 0.2s linear;
+      
 }
 
 .completed-items-container {
     text-decoration: line-through;
-
 }
 
 .hidden {
     visibility: hidden;
     height: 1rem;
- 
 }
 
 .note {
